@@ -19,11 +19,19 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: const TextField(
               decoration: InputDecoration(hintText: 'Ingrese el codigo gppga'),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: const Text("Verificar"),
+              onPressed: () {}),
           SizedBox(
             height: 50,
           ),
