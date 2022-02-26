@@ -7,22 +7,28 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 30),
             child: const TextField(
               decoration: InputDecoration(hintText: 'Ingrese el codigo gppga'),
             ),
           ),
+          SizedBox(
+            height: 50,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [Text("Hora"), Text("0")],
               ),
               Column(
-                children: [Text("Latitud"), Text(" ")],
+                children: [Text("Latitud"), Text("0")],
               ),
               Column(
-                children: [Text("Longitud"), Text("")],
+                children: [Text("Longitud"), Text("0")],
               )
             ],
           )
