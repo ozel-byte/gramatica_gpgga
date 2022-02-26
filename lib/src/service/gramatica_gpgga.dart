@@ -3,8 +3,6 @@ class GramaticaGpgga {
 
   void reglaUno(String codigo){
 
-    
-
   }
 
 
