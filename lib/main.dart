@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gpgga/src/Pages/home_page.dart';
+import 'package:gpgga/src/Pages/run_mateapp.dart';
 
 void main() {
-  runApp(const HomePage());
+  runApp(RunMateApp());
 }
