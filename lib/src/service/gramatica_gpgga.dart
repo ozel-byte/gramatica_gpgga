@@ -1,13 +1,17 @@
 // ignore_for_file: avoid_print
 
 import 'package:gpgga/src/service/coversion_codigo.dart';
+//$GPGGA,163131.00,1638.81013,N,09337.45041,W
 
 class GramaticaGpgga {
   GramaticaGpgga(); //Constructor
 
   Map reglaUno(String codigo) {
     List<String> codigoSplit = codigo.split(",");
-    Map datos;
+    Map<dynamic, dynamic> datosMapa = {
+      'status': false,
+      'conversion': 's/n',
+    };
 
     if (codigoSplit.length == 6) {
       if (codigoSplit[0] == '\$GPGGA') {
@@ -24,7 +28,7 @@ class GramaticaGpgga {
                       oriLa: codigoSplit[3],
                       longitud: codigoSplit[4],
                       oriLo: codigoSplit[5]);
-                  datos = {'status': true, 'conversion': conversion};
+                  datosMapa = {'status': true, 'conversion': conversion};
                 } else {
                   print("Dirección de longitud incorrecta");
                 }
@@ -45,10 +49,9 @@ class GramaticaGpgga {
       print("El codigo esta incorrecto");
     }
 
-    return datos = {
-      'status': false,
-      'conversion': null,
-    };
+    print(datosMapa);
+
+    return datosMapa;
   }
 
   bool _reglaHR(HR) {
