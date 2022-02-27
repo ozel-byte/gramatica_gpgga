@@ -5,9 +5,9 @@ import 'package:gpgga/src/service/coversion_codigo.dart';
 class GramaticaGpgga {
   GramaticaGpgga(); //Constructor
 
-  bool reglaUno(String codigo) {
+  Map reglaUno(String codigo) {
     List<String> codigoSplit = codigo.split(",");
-    bool codigo_valido = false;
+    Map datos;
 
     if (codigoSplit.length == 6) {
       if (codigoSplit[0] == '\$GPGGA') {
@@ -24,7 +24,7 @@ class GramaticaGpgga {
                       oriLa: codigoSplit[3],
                       longitud: codigoSplit[4],
                       oriLo: codigoSplit[5]);
-                  codigo_valido = true;
+                  datos = {'status': true, 'conversion': conversion};
                 } else {
                   print("Dirección de longitud incorrecta");
                 }
@@ -45,7 +45,10 @@ class GramaticaGpgga {
       print("El codigo esta incorrecto");
     }
 
-    return codigo_valido;
+    return datos = {
+      'status': false,
+      'conversion': null,
+    };
   }
 
   bool _reglaHR(HR) {
