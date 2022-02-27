@@ -56,22 +56,26 @@ class GramaticaGpgga {
 
   bool _reglaHR(HR) {
     String H, M, S, ML;
-    H = HR.substring(0, 2);
-    M = HR.substring(2, 4);
-    S = HR.substring(4, 6);
-    ML = HR.substring(6, 9);
-    bool auxH = false;
+    if (HR.length == 9) {
+      H = HR.substring(0, 2);
+      M = HR.substring(2, 4);
+      S = HR.substring(4, 6);
+      ML = HR.substring(6, 9);
+      bool auxH = false;
 
-    if (((H[0] == "0" || H[0] == "1") && "0123456789".contains(H[1])) ||
-        (H[0] == "2" && "01234".contains(H[1]))) {
-      auxH = true;
-      print('Hora correcta');
-    } else {
-      print('Hora incorrecta');
-    }
+      if (((H[0] == "0" || H[0] == "1") && "0123456789".contains(H[1])) ||
+          (H[0] == "2" && "01234".contains(H[1]))) {
+        auxH = true;
+        print('Hora correcta');
+      } else {
+        print('Hora incorrecta');
+      }
 
-    if (auxH && _minOseg(M) && _minOseg(S) && ML == ".00") {
-      return true;
+      if (auxH && _minOseg(M) && _minOseg(S) && ML == ".00") {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
@@ -79,50 +83,62 @@ class GramaticaGpgga {
 
   bool _reglaLTyLG(LTG, tipo) {
     String G, M, ML2;
-    bool auxG = false, auxML = true;
-    G = LTG.substring(0, tipo);
-    M = LTG.substring(tipo, tipo + 2);
-    ML2 = LTG.substring(tipo + 3, LTG.length);
 
-    print("LTyLG: $G - $M - $ML2");
+    if ((tipo == 2 && LTG.length >= 5) || (tipo == 3 && LTG.length >= 6)) {
+      bool auxG = false, auxML = true;
+      G = LTG.substring(0, tipo);
+      M = LTG.substring(tipo, tipo + 2);
+      ML2 = LTG.substring(tipo + 3, LTG.length);
 
-    if (tipo == 2) {
-      if (("012345678".contains(G[0]) && "0123456789".contains(G[1])) ||
-          (G[0] == "9" && G[1] == "0")) {
-        auxG = true;
+      if (tipo == 2) {
+        if (("012345678".contains(G[0]) && "0123456789".contains(G[1])) ||
+            (G[0] == "9" && G[1] == "0")) {
+          auxG = true;
+        }
+        print('Latitud: $G');
+        print(LTG[2 + tipo]);
+      } else {
+        if ((G[0] == "0" &&
+                "0123456789".contains(G[1]) &&
+                "0123456789".contains(G[2])) ||
+            (G[0] == "1" &&
+                "01234567".contains(G[1]) &&
+                "0123456789".contains(G[2])) ||
+            (G[0] == "1" && G[1] == "8" && G[2] == "0")) {
+          auxG = true;
+        }
+        print('Longitud: $G');
+        print(LTG[2 + tipo]);
       }
-      print('Latitud: $G');
-      print(LTG[2 + tipo]);
-    } else {
-      if ((G[0] == "0" &&
-              "0123456789".contains(G[1]) &&
-              "0123456789".contains(G[2])) ||
-          (G[0] == "1" &&
-              "01234567".contains(G[1]) &&
-              "0123456789".contains(G[2])) ||
-          (G[0] == "1" && G[1] == "8" && G[2] == "0")) {
-        auxG = true;
-      }
-      print('Longitud: $G');
-      print(LTG[2 + tipo]);
-    }
 
-    if (auxG) {
-      print('Grados correctos');
-    } else {
-      print('Grados incorrectos');
-    }
-    for (int i = 0; i < ML2.length; i++) {
-      if (!"0123456789".contains(ML2[i])) {
-        auxML = false;
-        print("milisegundos incorrectos");
+      if (auxG) {
+        print('Grados correctos');
+      } else {
+        print('Grados incorrectos');
       }
-    }
+      for (int i = 0; i < ML2.length; i++) {
+        if (!"0123456789".contains(ML2[i])) {
+          auxML = false;
+          print("milisegundos incorrectos");
+          break;
+        }
+      }
 
-    if (auxG && _minOseg(M) && LTG[2 + tipo] == "." && auxML) {
-      return true;
+      if (auxML) {
+        if (tipo == 2 && double.parse(LTG) > 9000.0) {
+          auxG = false;
+        } else if (tipo == 3 && double.parse(LTG) > 18000.0) {
+          auxG = false;
+        }
+      }
+
+      if (auxG && _minOseg(M) && LTG[2 + tipo] == "." && auxML) {
+        return true;
+      } else {
+        print('Longitud: ${LTG[2 + tipo]}');
+        return false;
+      }
     } else {
-      print('Longitud: ${LTG[2 + tipo]}');
       return false;
     }
   }
