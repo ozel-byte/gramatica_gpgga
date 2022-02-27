@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.blue,
           width: size.width * 1,
           height: size.height * 1,
-          // child: viewMap(),
+          child: viewMap(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -82,6 +82,9 @@ class _HomePageState extends State<HomePage> {
                               height: 40,
                               decoration: BoxDecoration(
                                   color: Colors.green[200],
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://cdn.shopify.com/s/files/1/0247/2955/0932/products/HTB1g8lziV9gSKJjSspbq6zeNXXaf_1024x1024@2x.jpg?v=1585077795")),
                                   borderRadius: BorderRadius.circular(70)),
                             ),
                           ),
@@ -109,17 +112,28 @@ class _HomePageState extends State<HomePage> {
                   "pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA",
             },
             urlTemplate:
-                "https://api.mapbox.com/styles/v1/byte-ozel/ckw4fsfwc2pwc14oz01jsr9bx/wmts?access_token=pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA"),
+                "https://api.mapbox.com/styles/v1/byte-ozel/ckw4fsfwc2pwc14oz01jsr9bx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA"),
         MarkerLayerOptions(markers: [
           Marker(
-              width: 80.0,
-              height: 80.0,
+              width: 70.0,
+              height: 70.0,
               point: latLng.LatLng(51.5, -0.09),
               builder: (ctx) => Container(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.red,
-                    ),
-                  ))
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 32,
+                        backgroundImage: NetworkImage(
+                            "https://i.ytimg.com/vi/2lH1hlbihRg/hqdefault.jpg"),
+                      ),
+                    ],
+                  )))
         ])
       ],
     );
