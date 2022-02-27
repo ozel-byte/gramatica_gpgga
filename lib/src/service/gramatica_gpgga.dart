@@ -1,10 +1,13 @@
 // ignore_for_file: avoid_print
 
+import 'package:gpgga/src/service/coversion_codigo.dart';
+
 class GramaticaGpgga {
   GramaticaGpgga(); //Constructor
 
-  void reglaUno(String codigo) {
+  bool reglaUno(String codigo) {
     List<String> codigoSplit = codigo.split(",");
+    bool codigo_valido = false;
 
     if (codigoSplit.length == 6) {
       if (codigoSplit[0] == '\$GPGGA') {
@@ -15,6 +18,13 @@ class GramaticaGpgga {
               if (_reglaLTyLG(codigoSplit[4], 3)) {
                 if (codigoSplit[5] == "W" || codigoSplit[5] == "E") {
                   print("Codigo GPGGA correcto");
+                  final conversion = ConversionCodigo(
+                      hrs: codigoSplit[1],
+                      latitud: codigoSplit[2],
+                      oriLa: codigoSplit[3],
+                      longitud: codigoSplit[4],
+                      oriLo: codigoSplit[5]);
+                  codigo_valido = true;
                 } else {
                   print("Dirección de longitud incorrecta");
                 }
@@ -34,6 +44,8 @@ class GramaticaGpgga {
     } else {
       print("El codigo esta incorrecto");
     }
+
+    return codigo_valido;
   }
 
   bool _reglaHR(HR) {
