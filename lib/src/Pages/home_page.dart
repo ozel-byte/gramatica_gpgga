@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   String _valueText = "";
 
   GramaticaGpgga instanceGramtica = GramaticaGpgga();
+  double sizeView = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -42,57 +43,33 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: const EdgeInsets.only(top: 20),
               width: size.width * 0.9,
-              height: 55,
+              height: sizeView,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: size.width * 0.7,
-                    height: size.height * 5,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: _textEditingController,
-                        onChanged: (value) {
-                          _valueText = value;
-                          if (value.contains("\n")) {
-                            instanceGramtica.reglaUno(_valueText);
-                          }
-                        },
-                        decoration: const InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                            hintText: 'Ingrese el codigo GPGGA'),
-                      ),
+                    width: size.width * 0.8,
+                    height: 60,
+                    color: Colors.white,
+                    child: TextField(
+                      controller: _textEditingController,
+                      onChanged: (value) {
+                        _valueText = value;
+                        print(value);
+                      },
+                      decoration:
+                          InputDecoration(hintText: 'Ingrese el codigo GPGGA'),
                     ),
                   ),
-                  Container(
-                      width: size.width * 0.2,
-                      height: size.height * 5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                        "https://cdn.shopify.com/s/files/1/0247/2955/0932/products/HTB1g8lziV9gSKJjSspbq6zeNXXaf_1024x1024@2x.jpg?v=1585077795")),
-                                borderRadius: BorderRadius.circular(70)),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)))
+                  MaterialButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      child: const Text("Verificar"),
+                      onPressed: () {
+                        instanceGramtica.reglaUno(_valueText);
+                      }),
                 ],
               ),
             ),
