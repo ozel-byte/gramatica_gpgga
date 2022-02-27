@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(hintText: 'Ingrese el codigo gppga'),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           MaterialButton(
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
               textColor: Colors.white,
               child: const Text("Verificar"),
               onPressed: () {}),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Row(
