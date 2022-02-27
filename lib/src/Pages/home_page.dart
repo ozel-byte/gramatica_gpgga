@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpgga/src/service/gramatica_gpgga.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,6 +9,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _textEditingController = TextEditingController();
+  String _valueText = "";
+
+  GramaticaGpgga instanceGramtica = GramaticaGpgga();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +26,11 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: const TextField(
-              decoration: InputDecoration(hintText: 'Ingrese el codigo gppga'),
+            child: TextField(
+              controller: _textEditingController,
+              onChanged: (value) => _valueText = value,
+              decoration:
+                  const InputDecoration(hintText: 'Ingrese el codigo gppga'),
             ),
           ),
           const SizedBox(
@@ -31,7 +40,9 @@ class _HomePageState extends State<HomePage> {
               color: Colors.blue,
               textColor: Colors.white,
               child: const Text("Verificar"),
-              onPressed: () {}),
+              onPressed: () {
+                instanceGramtica.reglaUno(_valueText);
+              }),
           const SizedBox(
             height: 50,
           ),
