@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import "package:latlong2/latlong.dart" as latLng;
 import 'package:gpgga/src/service/gramatica_gpgga.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.blue,
           width: size.width * 1,
           height: size.height * 1,
+          // child: viewMap(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,10 +53,12 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: _textEditingController,
+                        onChanged: (value) => {value = _valueText},
+                        decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
                             focusedBorder: UnderlineInputBorder(
@@ -68,16 +73,17 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                image: const DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        "https://th.bing.com/th/id/OIP.BP2du1B99ZGqAaC-N7ABcAHaE7?w=264&h=180&c=7&r=0&o=5&pid=1.7")),
-                                borderRadius: BorderRadius.circular(70)),
+                          GestureDetector(
+                            onTap: () {
+                              instanceGramtica.reglaUno(_valueText);
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: Colors.green[200],
+                                  borderRadius: BorderRadius.circular(70)),
+                            ),
                           ),
                         ],
                       ),
@@ -89,6 +95,32 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         )
+      ],
+    );
+  }
+
+  Widget viewMap() {
+    return FlutterMap(
+      options: MapOptions(center: latLng.LatLng(51.5, -0.09), zoom: 13.0),
+      layers: [
+        TileLayerOptions(
+            additionalOptions: {
+              "accessToken":
+                  "pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA",
+            },
+            urlTemplate:
+                "https://api.mapbox.com/styles/v1/byte-ozel/ckw4fsfwc2pwc14oz01jsr9bx/wmts?access_token=pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA"),
+        MarkerLayerOptions(markers: [
+          Marker(
+              width: 80.0,
+              height: 80.0,
+              point: latLng.LatLng(51.5, -0.09),
+              builder: (ctx) => Container(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.red,
+                    ),
+                  ))
+        ])
       ],
     );
   }
