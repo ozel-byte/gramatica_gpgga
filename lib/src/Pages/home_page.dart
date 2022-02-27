@@ -15,7 +15,8 @@ class _HomePageState extends State<HomePage> {
   String _valueText = "";
 
   GramaticaGpgga instanceGramtica = GramaticaGpgga();
-  double sizeView = 200;
+  double sizeView = 70;
+  bool viewButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +50,52 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: size.width * 0.8,
-                    height: 60,
-                    color: Colors.white,
-                    child: TextField(
-                      controller: _textEditingController,
-                      onChanged: (value) {
-                        _valueText = value;
-                        print(value);
-                      },
-                      decoration:
-                          InputDecoration(hintText: 'Ingrese el codigo GPGGA'),
+                  AnimatedContainer(
+                    duration: Duration(seconds: 4),
+                    curve: Curves.easeInCirc,
+                    child: Container(
+                      width: size.width * 0.8,
+                      height: 60,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: _textEditingController,
+                          onChanged: (value) {
+                            _valueText = value;
+                            print(value);
+                            if (value.isEmpty) {
+                              sizeView = 70;
+                              setState(() {});
+                              viewButton = false;
+                              print("ningun valor ocultar button");
+                            } else {
+                              sizeView = 150;
+                              setState(() {});
+                              viewButton = true;
+                            }
+                          },
+                          decoration: InputDecoration(
+                              enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: viewButton
+                                      ? const BorderSide(color: Colors.grey)
+                                      : const BorderSide(color: Colors.white)),
+                              hintText: 'Ingrese el codigo GPGGA'),
+                        ),
+                      ),
                     ),
                   ),
-                  MaterialButton(
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      child: const Text("Verificar"),
-                      onPressed: () {
-                        instanceGramtica.reglaUno(_valueText);
-                      }),
+                  viewButton
+                      ? MaterialButton(
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          child: const Text("Verificar"),
+                          onPressed: () {
+                            instanceGramtica.reglaUno(_valueText);
+                          })
+                      : Container()
                 ],
               ),
             ),
