@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:gpgga/src/service/coversion_codigo.dart';
 import "package:latlong2/latlong.dart" as latLng;
 import 'package:gpgga/src/service/gramatica_gpgga.dart';
 
@@ -17,9 +18,13 @@ class _HomePageState extends State<HomePage> {
   GramaticaGpgga instanceGramtica = GramaticaGpgga();
   double sizeView = 70;
   bool viewButton = false;
+  Map mapData = {};
   bool validationGpgga = false;
   int countvalidationGpgga = 0;
   String textMsj = "Gramatica GPGGA";
+  late ConversionCodigo instanceConversionCode;
+  double lat = 50.0;
+  double lng = -0.09;
 
   @override
   Widget build(BuildContext context) {
@@ -103,14 +108,21 @@ class _HomePageState extends State<HomePage> {
                           textColor: Colors.white,
                           child: const Text("Verificar"),
                           onPressed: () {
-                            validationGpgga =
-                                instanceGramtica.reglaUno(_valueText);
-                            countvalidationGpgga = 1;
-                            if (validationGpgga) {
+                            mapData = instanceGramtica.reglaUno(_valueText);
+                            if (mapData["status"]) {
+                              validationGpgga = true;
                               textMsj = "Codigo correcto mostrando en mapa";
                             } else {
+                              validationGpgga = false;
                               textMsj = "Codigo incorrecto";
                             }
+                            countvalidationGpgga = 1;
+                            instanceConversionCode = mapData["conversion"];
+                            lat =
+                                double.parse(instanceConversionCode.getLatitud);
+                            lng = double.parse(
+                                instanceConversionCode.getLongitud);
+
                             setState(() {});
                           })
                       : Container()
@@ -125,7 +137,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget viewMap() {
     return FlutterMap(
-      options: MapOptions(center: latLng.LatLng(51.5, -0.09), zoom: 13.0),
+      options: MapOptions(center: latLng.LatLng(lat, lng), zoom: 13.0),
       layers: [
         TileLayerOptions(
             additionalOptions: {
