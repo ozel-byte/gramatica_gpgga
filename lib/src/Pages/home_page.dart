@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   int countvalidationGpgga = 0;
   String textMsj = "Gramatica GPGGA";
   late ConversionCodigo instanceConversionCode;
-  double lat = 50.0;
+  double lat = 51.5;
   double lng = -0.09;
 
   @override
@@ -112,16 +112,16 @@ class _HomePageState extends State<HomePage> {
                             if (mapData["status"]) {
                               validationGpgga = true;
                               textMsj = "Codigo correcto mostrando en mapa";
+                              instanceConversionCode = mapData["conversion"];
+                              lat = double.parse(
+                                  instanceConversionCode.getLatitud);
+                              lng = double.parse(
+                                  instanceConversionCode.getLongitud);
                             } else {
                               validationGpgga = false;
                               textMsj = "Codigo incorrecto";
                             }
                             countvalidationGpgga = 1;
-                            instanceConversionCode = mapData["conversion"];
-                            lat =
-                                double.parse(instanceConversionCode.getLatitud);
-                            lng = double.parse(
-                                instanceConversionCode.getLongitud);
 
                             setState(() {});
                           })
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
           Marker(
               width: 70.0,
               height: 70.0,
-              point: latLng.LatLng(51.5, -0.09),
+              point: latLng.LatLng(lat, lng),
               builder: (ctx) => Container(
                   width: 200,
                   height: 200,
