@@ -26,6 +26,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   double lat = 51.5;
   double lng = -0.09;
   late MapController mapController;
+  String _hrData = "16:20:12";
+  String _latData = "51.5";
+  String _lngData = "-0.09";
 
   @override
   void initState() {
@@ -65,8 +68,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               margin: const EdgeInsets.only(top: 20),
               width: size.width * 0.9,
               height: sizeView,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3))
+              ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -124,6 +132,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   instanceConversionCode.getLatitud);
                               lng = double.parse(
                                   instanceConversionCode.getLongitud);
+                              _latData = lat.toString();
+                              _lngData = lng.toString();
+                              _hrData = instanceConversionCode.gethrs;
                               _animatedMapMove(latLng.LatLng(lat, lng));
                             } else {
                               validationGpgga = false;
@@ -187,23 +198,48 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 "https://api.mapbox.com/styles/v1/byte-ozel/ckw4fsfwc2pwc14oz01jsr9bx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYnl0ZS1vemVsIiwiYSI6ImNrdzQ2YjFrajAybngyd21uZGkyZmNmcnYifQ.WVNIfs76Zw21ziiRpv4EjA"),
         MarkerLayerOptions(markers: [
           Marker(
-              width: 70.0,
-              height: 70.0,
+              width: 170.0,
+              height: 120.0,
               point: latLng.LatLng(lat, lng),
               builder: (ctx) => Container(
-                  width: 200,
-                  height: 200,
+                  width: 800,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Row(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3))
+                      ]),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircleAvatar(
-                        radius: 32,
+                    children: [
+                      const CircleAvatar(
+                        radius: 25,
                         backgroundImage: NetworkImage(
-                            "https://i.ytimg.com/vi/2lH1hlbihRg/hqdefault.jpg"),
+                            "https://images.pexels.com/photos/8572295/pexels-photo-8572295.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [Text("Latitud"), Text(_latData)],
+                          ),
+                          Column(
+                            children: [Text("Longitud"), Text(_lngData)],
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [Text("Hrs"), Text(_hrData)],
+                          ),
+                        ],
+                      )
                     ],
                   )))
         ])
