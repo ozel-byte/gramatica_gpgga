@@ -162,10 +162,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     var controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
-    // The animation determines what path the animation will take. You can try different Curves values, although I found
-    // fastOutSlowIn to be my favorite.
     Animation<double> animation =
-        CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+        CurvedAnimation(parent: controller, curve: Curves.easeOutExpo);
 
     controller.addListener(() {
       mapController.move(
