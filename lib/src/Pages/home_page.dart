@@ -17,14 +17,22 @@ class _HomePageState extends State<HomePage> {
   GramaticaGpgga instanceGramtica = GramaticaGpgga();
   double sizeView = 70;
   bool viewButton = false;
+  bool validationGpgga = false;
+  int countvalidationGpgga = 0;
+  String textMsj = "Gramatica GPGGA";
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green[300],
-          title: const Text(" Gramatica GPGGA "),
+          centerTitle: true,
+          backgroundColor: countvalidationGpgga == 1
+              ? validationGpgga
+                  ? Colors.green[300]
+                  : Colors.red[300]
+              : Colors.amber[400],
+          title: Text(textMsj),
         ),
         body: map(size));
   }
@@ -68,6 +76,8 @@ class _HomePageState extends State<HomePage> {
                               sizeView = 70;
                               setState(() {});
                               viewButton = false;
+                              countvalidationGpgga = 0;
+                              textMsj = "Gramatica GPGGA";
                               print("ningun valor ocultar button");
                             } else {
                               sizeView = 150;
@@ -93,7 +103,15 @@ class _HomePageState extends State<HomePage> {
                           textColor: Colors.white,
                           child: const Text("Verificar"),
                           onPressed: () {
-                            instanceGramtica.reglaUno(_valueText);
+                            validationGpgga =
+                                instanceGramtica.reglaUno(_valueText);
+                            countvalidationGpgga = 1;
+                            if (validationGpgga) {
+                              textMsj = "Codigo correcto mostrando en mapa";
+                            } else {
+                              textMsj = "Codigo incorrecto";
+                            }
+                            setState(() {});
                           })
                       : Container()
                 ],
