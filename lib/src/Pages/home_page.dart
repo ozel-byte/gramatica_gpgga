@@ -54,10 +54,15 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8)),
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: _textEditingController,
-                        onChanged: (value) => {value = _valueText},
+                        onChanged: (value) {
+                          _valueText = value;
+                          if (value.contains("\n")) {
+                            instanceGramtica.reglaUno(_valueText);
+                          }
+                        },
                         decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
@@ -73,20 +78,15 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              instanceGramtica.reglaUno(_valueText);
-                            },
-                            child: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  color: Colors.green[200],
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://cdn.shopify.com/s/files/1/0247/2955/0932/products/HTB1g8lziV9gSKJjSspbq6zeNXXaf_1024x1024@2x.jpg?v=1585077795")),
-                                  borderRadius: BorderRadius.circular(70)),
-                            ),
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: Colors.green[200],
+                                image: const DecorationImage(
+                                    image: NetworkImage(
+                                        "https://cdn.shopify.com/s/files/1/0247/2955/0932/products/HTB1g8lziV9gSKJjSspbq6zeNXXaf_1024x1024@2x.jpg?v=1585077795")),
+                                borderRadius: BorderRadius.circular(70)),
                           ),
                         ],
                       ),
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(50)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       CircleAvatar(
                         radius: 32,
                         backgroundImage: NetworkImage(
