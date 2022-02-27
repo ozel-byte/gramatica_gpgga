@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final TextEditingController _textEditingController = TextEditingController();
   String _valueText = "";
 
@@ -25,6 +25,13 @@ class _HomePageState extends State<HomePage> {
   late ConversionCodigo instanceConversionCode;
   double lat = 51.5;
   double lng = -0.09;
+  late MapController mapController;
+
+  @override
+  void initState() {
+    super.initState();
+    mapController = MapController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                                   instanceConversionCode.getLatitud);
                               lng = double.parse(
                                   instanceConversionCode.getLongitud);
+                              _animatedMapMove(latLng.LatLng(lat, lng));
                             } else {
                               validationGpgga = false;
                               textMsj = "Codigo incorrecto";
@@ -135,8 +143,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _animatedMapMove(latLng.LatLng destLocation) {
+    final _latTween = Tween<double>(
+        begin: mapController.center.latitude, end: destLocation.latitude);
+    final _lngTween = Tween<double>(
+        begin: mapController.center.longitude, end: destLocation.longitude);
+
+    var controller = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+    // The animation determines what path the animation will take. You can try different Curves values, although I found
+    // fastOutSlowIn to be my favorite.
+    Animation<double> animation =
+        CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+
+    controller.addListener(() {
+      mapController.move(
+          latLng.LatLng(
+              _latTween.evaluate(animation), _lngTween.evaluate(animation)),
+          10.0);
+    });
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.dispose();
+      } else if (status == AnimationStatus.dismissed) {
+        controller.dispose();
+      }
+    });
+
+    controller.forward();
+  }
+
   Widget viewMap() {
     return FlutterMap(
+      mapController: mapController,
       options: MapOptions(center: latLng.LatLng(lat, lng), zoom: 13.0),
       layers: [
         TileLayerOptions(
