@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   borderSide: viewButton
                                       ? const BorderSide(color: Colors.grey)
                                       : const BorderSide(color: Colors.white)),
-                              hintText: 'Ingrese el codigo GPGGA'),
+                              hintText: 'Ingrese el código GPGGA'),
                         ),
                       ),
                     ),
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             mapData = instanceGramtica.reglaUno(_valueText);
                             if (mapData["status"]) {
                               validationGpgga = true;
-                              textMsj = "Codigo correcto mostrando en mapa";
+                              textMsj = "Código correcto mostrando en mapa";
                               instanceConversionCode = mapData["conversion"];
                               lat = double.parse(
                                   instanceConversionCode.getLatitud);
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               _animatedMapMove(latLng.LatLng(lat, lng));
                             } else {
                               validationGpgga = false;
-                              textMsj = "Codigo incorrecto";
+                              textMsj = "Código incorrecto";
                             }
                             countvalidationGpgga = 1;
 
@@ -257,7 +257,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 controller: _textEditingController,
                 onChanged: (value) => _valueText = value,
                 decoration:
-                    const InputDecoration(hintText: 'Ingrese el codigo gppga'),
+                    const InputDecoration(hintText: 'Ingrese el código gppga'),
               ),
             ),
             const SizedBox(

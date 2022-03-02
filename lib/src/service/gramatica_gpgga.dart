@@ -64,7 +64,7 @@ class GramaticaGpgga {
       bool auxH = false;
 
       if (((H[0] == "0" || H[0] == "1") && "0123456789".contains(H[1])) ||
-          (H[0] == "2" && "01234".contains(H[1]))) {
+          (H[0] == "2" && "0123".contains(H[1]))) {
         auxH = true;
         print('Hora correcta');
       } else {
