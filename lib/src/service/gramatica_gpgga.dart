@@ -29,7 +29,7 @@ class GramaticaGpgga {
                       oriLa: codigoSplit[3],
                       longitud: codigoSplit[4],
                       oriLo: codigoSplit[5]);
-                  datosMapa = {'status': true, 'conversion': conversion};
+                  datosMapa = {'status': true, 'conversion': conversion, 'error': 'Código correcto'};
                 } else {
                   print("Dirección de longitud incorrecta");
                   datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Direc. Long. incorrecta' };
@@ -53,7 +53,7 @@ class GramaticaGpgga {
       }
     } else {
       print("El codigo esta incorrecto");
-      datosMapa = {'status': true, 'conversion': 's/n', 'error': 'Código incorrecto' };
+      datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Código incorrecto' };
     }
 
     print(datosMapa);
