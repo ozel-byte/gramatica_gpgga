@@ -11,6 +11,7 @@ class GramaticaGpgga {
     Map<dynamic, dynamic> datosMapa = {
       'status': false,
       'conversion': 's/n',
+      'error': 's/n'
     };
 
     if (codigoSplit.length == 6) {
@@ -31,22 +32,28 @@ class GramaticaGpgga {
                   datosMapa = {'status': true, 'conversion': conversion};
                 } else {
                   print("Dirección de longitud incorrecta");
+                  datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Direc. Long. incorrecta' };
                 }
               } else {
                 print('La longitud es incorrecta');
+                datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Long. incorrecta' };
               }
             } else {
               print("Dirección de latitud incorrecta");
+              datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Direc. Lati. incorrecta' };
             }
           } else {
             print('La latitud es incorrecta');
+            datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Lati. incorrecta' };
           }
         } else {
           print("la hora es incorrecta");
+          datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Hora incorrecta' };
         }
       }
     } else {
       print("El codigo esta incorrecto");
+      datosMapa = {'status': true, 'conversion': 's/n', 'error': 'Código incorrecto' };
     }
 
     print(datosMapa);
