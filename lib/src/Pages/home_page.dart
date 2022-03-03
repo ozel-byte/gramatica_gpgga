@@ -238,9 +238,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [Text("No War")],
