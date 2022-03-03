@@ -14,7 +14,7 @@ class GramaticaGpgga {
       'error': 's/n'
     };
 
-    final expreL = RegExp(r'^[A-z]+$');
+    final expreL = RegExp(r'^[A-Z]+$');
 
     if (codigoSplit.length == 6) {
       if (codigoSplit[0] == '\$GPGGA' &&
