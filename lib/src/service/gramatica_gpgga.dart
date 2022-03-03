@@ -145,7 +145,7 @@ class GramaticaGpgga {
       print(G);
 
       if (tipo == 2 && numero.hasMatch(G)) {
-        if ((numero2.hasMatch(G[0]) && numero2.hasMatch(G[1])) ||
+        if ((numero2.hasMatch(G[0]) && numero.hasMatch(G[1])) ||
             (G[0] == "9" && G[1] == "0")) {
           auxG = true;
           print('Latitud Correcta: $G');
