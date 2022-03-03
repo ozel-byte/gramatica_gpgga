@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String _hrData = "16:20:12";
   String _latData = "51.5";
   String _lngData = "-0.09";
-
+  String _error = "";
   @override
   void initState() {
     super.initState();
@@ -128,6 +128,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               validationGpgga = true;
                               textMsj = "Código correcto mostrando en mapa";
                               instanceConversionCode = mapData["conversion"];
+                              _error = mapData["error"];
                               lat = double.parse(
                                   instanceConversionCode.getLatitud);
                               lng = double.parse(
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               _animatedMapMove(latLng.LatLng(lat, lng));
                             } else {
                               validationGpgga = false;
-                              textMsj = "Código incorrecto";
+                              textMsj = "$_error";
                             }
                             countvalidationGpgga = 1;
 
