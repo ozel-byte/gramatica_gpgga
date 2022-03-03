@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AnimatedContainer(
-                    duration: Duration(seconds: 4),
+                    duration: const Duration(seconds: 4),
                     curve: Curves.easeInCirc,
                     child: Container(
                       width: size.width * 0.8,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           controller: _textEditingController,
                           onChanged: (value) {
                             _valueText = value;
-                            print(value);
+
                             if (value.isEmpty) {
                               sizeView = 70;
                               setState(() {});
@@ -223,10 +223,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
-                            children: [Text("Latitud"), Text(_latData)],
+                            children: [const Text("Latitud"), Text(_latData)],
                           ),
                           Column(
-                            children: [Text("Longitud"), Text(_lngData)],
+                            children: [const Text("Longitud"), Text(_lngData)],
                           )
                         ],
                       ),
@@ -234,61 +234,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(
-                            children: [Text("Hrs"), Text(_hrData)],
+                            children: [const Text("Hrs"), Text(_hrData)],
                           ),
                         ],
                       )
                     ],
                   )))
         ])
-      ],
-    );
-  }
-
-  Widget list() {
-    return ListView(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: TextField(
-                controller: _textEditingController,
-                onChanged: (value) => _valueText = value,
-                decoration:
-                    const InputDecoration(hintText: 'Ingrese el código gppga'),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                child: const Text("Verificar"),
-                onPressed: () {
-                  instanceGramtica.reglaUno(_valueText);
-                }),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [Text("Hora"), Text("0")],
-                ),
-                Column(
-                  children: [Text("Latitud"), Text("0")],
-                ),
-                Column(
-                  children: [Text("Longitud"), Text("0")],
-                )
-              ],
-            )
-          ],
-        ),
       ],
     );
   }
