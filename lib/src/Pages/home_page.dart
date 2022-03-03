@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               validationGpgga = true;
                               textMsj = "Código correcto mostrando en mapa";
                               instanceConversionCode = mapData["conversion"];
-                              _error = mapData["error"];
+
                               lat = double.parse(
                                   instanceConversionCode.getLatitud);
                               lng = double.parse(
@@ -138,8 +138,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               _hrData = instanceConversionCode.gethrs;
                               _animatedMapMove(latLng.LatLng(lat, lng));
                             } else {
+                              _error = mapData["error"];
                               validationGpgga = false;
-                              textMsj = "$_error";
+                              textMsj = _error;
                             }
                             countvalidationGpgga = 1;
 
