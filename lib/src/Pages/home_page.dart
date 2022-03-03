@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         MarkerLayerOptions(markers: [
           Marker(
               width: 170.0,
-              height: 120.0,
+              height: 130.0,
               point: latLng.LatLng(lat, lng),
               builder: (ctx) => Container(
                   width: 800,
@@ -237,6 +237,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             children: [const Text("Hrs"), Text(_hrData)],
                           ),
                         ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [Text("No War")],
                       )
                     ],
                   )))
