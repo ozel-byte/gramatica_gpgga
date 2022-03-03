@@ -85,7 +85,7 @@ class GramaticaGpgga {
     String G, M, ML2;
 
     if ((tipo == 2 && LTG.length >= 5) || (tipo == 3 && LTG.length >= 6)) {
-      bool auxG = false, auxML = true;
+      bool auxG = false, auxML = true, auxM = true;
       G = LTG.substring(0, tipo);
       M = LTG.substring(tipo, tipo + 2);
       ML2 = LTG.substring(tipo + 3, LTG.length);
@@ -116,15 +116,19 @@ class GramaticaGpgga {
       } else {
         print('Grados incorrectos');
       }
+
+      ///aqui llamar
+
       for (int i = 0; i < ML2.length; i++) {
         if (!"0123456789".contains(ML2[i])) {
           auxML = false;
-          print("milisegundos incorrectos");
           break;
         }
       }
 
-      if (auxML) {
+      auxM = _minOseg(M);
+
+      if (auxML && auxM) {
         if (tipo == 2 && double.parse(LTG) > 9000.0) {
           auxG = false;
         } else if (tipo == 3 && double.parse(LTG) > 18000.0) {
@@ -132,7 +136,7 @@ class GramaticaGpgga {
         }
       }
 
-      if (auxG && _minOseg(M) && LTG[2 + tipo] == "." && auxML) {
+      if (auxG && auxM && LTG[2 + tipo] == "." && auxML) {
         return true;
       } else {
         print('Longitud: ${LTG[2 + tipo]}');
