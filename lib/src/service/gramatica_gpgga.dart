@@ -50,6 +50,8 @@ class GramaticaGpgga {
           print("la hora es incorrecta");
           datosMapa = {'status': false, 'conversion': 's/n', 'error': 'Hora incorrecta' };
         }
+      } else {
+        datosMapa = {'status': false, 'conversion': 's/n', 'error': 'no es \$GPGGA' };
       }
     } else {
       print("El codigo esta incorrecto");
